@@ -7707,7 +7707,7 @@ export const WORD_DATA: Record<LangCode, WordCategory[]> = {
   pt,
 };
 
-export const FREE_PAIR_COUNT = 30;
+export const FREE_PAIR_COUNT = 20;
 
 export function getFreeWordPairs(lang: LangCode): typeof fr[number]['words'] {
   const categories = WORD_DATA[lang];
