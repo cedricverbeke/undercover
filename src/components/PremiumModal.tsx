@@ -1,5 +1,5 @@
 import { X, Check, Sparkles, Clock, Infinity as InfinityIcon, Lock } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Translation } from '@/game/i18n';
 import type { PremiumState } from '@/lib/supabase';
 
@@ -10,6 +10,8 @@ interface PremiumModalProps {
   t: Translation;
   premiumState: PremiumState;
   loading: boolean;
+  purchaseError: string | null;
+  purchaseErrorLabel: string;
 }
 
 export function PremiumModal({
@@ -19,8 +21,16 @@ export function PremiumModal({
   t,
   premiumState,
   loading,
+  purchaseError,
+  purchaseErrorLabel,
 }: PremiumModalProps) {
   const [purchasing, setPurchasing] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!loading && purchasing) {
+      setPurchasing(null);
+    }
+  }, [loading, purchasing]);
 
   const handleBuy = (type: 'party_pass' | 'lifetime') => {
     setPurchasing(type);
@@ -130,9 +140,16 @@ export function PremiumModal({
             </button>
           )}
 
-          {purchasing && (
+          {purchasing && !purchaseError && (
             <div className="text-center text-sm text-slate-400 py-2">
               {t.loading}
+            </div>
+          )}
+
+          {purchaseError && (
+            <div className="text-center text-sm text-red-400 py-2 break-words">
+              {purchaseErrorLabel}
+              <div className="text-xs text-red-400/70 mt-1 font-mono">{purchaseError}</div>
             </div>
           )}
 

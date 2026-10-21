@@ -134,6 +134,7 @@ export interface Translation {
   errorNeedCategory: string;
   // Misc
   loading: string;
+  purchaseError: string;
   back: string;
 }
 
@@ -244,6 +245,7 @@ const fr: Translation = {
   errorNeedCivil: 'Il doit y avoir au moins un Civil ! Réduisez les rôles spéciaux ou ajoutez des joueurs.',
   errorNeedCategory: 'Veuillez sélectionner au moins une catégorie.',
   loading: 'Chargement...',
+  purchaseError: 'Le paiement a échoué. Veuillez réessayer.',
   back: 'Retour',
 };
 
@@ -354,6 +356,7 @@ const en: Translation = {
   errorNeedCivil: 'There must be at least one Civil! Reduce special roles or add players.',
   errorNeedCategory: 'Please select at least one category.',
   loading: 'Loading...',
+  purchaseError: 'Payment failed. Please try again.',
   back: 'Back',
 };
 
@@ -459,6 +462,7 @@ const es: Translation = {
   errorNeedCivil: '¡Debe haber al menos un Civil! Reduce los roles especiales o añade jugadores.',
   errorNeedCategory: 'Por favor, selecciona al menos una categoría.',
   loading: 'Cargando...',
+  purchaseError: 'El pago ha fallado. Inténtalo de nuevo.',
   back: 'Volver',
 };
 
@@ -563,6 +567,7 @@ const de: Translation = {
   errorNeedCivil: 'Es muss mindestens ein Zivilist sein! Reduziere Spezialrollen oder füge Spieler hinzu.',
   errorNeedCategory: 'Bitte wähle mindestens eine Kategorie.',
   loading: 'Laden...',
+  purchaseError: 'Zahlung fehlgeschlagen. Bitte erneut versuchen.',
   back: 'Zurück',
 };
 
@@ -667,6 +672,7 @@ const it: Translation = {
   errorNeedCivil: 'Deve esserci almeno un Civile! Riduci i ruoli speciali o aggiungi giocatori.',
   errorNeedCategory: 'Seleziona almeno una categoria.',
   loading: 'Caricamento...',
+  purchaseError: 'Pagamento fallito. Riprova.',
   back: 'Indietro',
 };
 
@@ -771,6 +777,7 @@ const pt: Translation = {
   errorNeedCivil: 'Deve haver pelo menos um Civil! Reduz papéis especiais ou adiciona jogadores.',
   errorNeedCategory: 'Seleciona pelo menos uma categoria.',
   loading: 'A carregar...',
+  purchaseError: 'O pagamento falhou. Tente novamente.',
   back: 'Voltar',
 };
 

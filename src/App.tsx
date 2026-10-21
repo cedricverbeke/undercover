@@ -59,6 +59,7 @@ export default function App() {
   });
   const [premiumLoading, setPremiumLoading] = useState(true);
   const [purchaseLoading, setPurchaseLoading] = useState(false);
+  const [purchaseError, setPurchaseError] = useState<string | null>(null);
 
   const usedKeysRef = useRef<Set<string>>(new Set());
 
@@ -176,6 +177,7 @@ export default function App() {
 
   const handleBuy = async (type: PurchaseType) => {
     setPurchaseLoading(true);
+    setPurchaseError(false);
     try {
       const deviceId = getDeviceId();
       const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/stripe-checkout`;
@@ -193,16 +195,21 @@ export default function App() {
       });
 
       if (!response.ok) {
-        throw new Error(`Checkout failed (${response.status})`);
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || `Checkout failed (${response.status})`);
       }
 
       const data = await response.json();
       if (data.url) {
         window.location.href = data.url;
+      } else {
+        throw new Error('No checkout URL returned');
       }
     } catch (err) {
-      console.error('Purchase error:', err);
+      const message = err instanceof Error ? err.message : 'Unknown error';
+      console.error('Purchase error:', message);
       setPurchaseLoading(false);
+      setPurchaseError(message);
     }
   };
 
@@ -287,6 +294,8 @@ export default function App() {
           t={t}
           premiumState={premiumState}
           loading={purchaseLoading || premiumLoading}
+          purchaseError={purchaseError}
+          purchaseErrorLabel={t.purchaseError}
         />
       )}
     </div>

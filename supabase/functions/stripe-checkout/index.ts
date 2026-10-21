@@ -59,7 +59,13 @@ Deno.serve(async (req: Request) => {
     const origin = req.headers.get("origin") || "https://example.com";
 
     const session = await stripe.checkout.sessions.create({
+      ui_mode: "hosted",
       mode: "payment",
+      billing_address_collection: "auto",
+      phone_number_collection: { enabled: false },
+      automatic_tax: { enabled: false },
+      allow_promotion_codes: false,
+      submit_type: "auto",
       line_items: [{ price: priceId, quantity: 1 }],
       success_url: `${origin}/?success=true`,
       cancel_url: `${origin}/?canceled=true`,
