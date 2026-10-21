@@ -1,0 +1,22 @@
+name: Supabase Keep-Alive Ping
+
+on:
+  schedule:
+    # Exécution automatique toutes les 6 heures (à 00:00, 06:00, 12:00 et 18:00 UTC)
+    - cron: '0 */6 * * *'
+  # Permet de déclencher manuellement le ping depuis l'onglet Actions sur GitHub
+  workflow_dispatch:
+
+jobs:
+  ping-supabase:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase Database Table & Edge Function
+        run: |
+          echo "=== 1. Ping de l'API Supabase (Table purchases) ==="
+          curl -s -i -X GET "https://gkydopisnjblpqbaughp.supabase.co/rest/v1/purchases?select=id&limit=1" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}"
+          
+          echo -e "\n\n=== 2. Ping de la Edge Function (stripe-checkout) ==="
+          curl -s -i -X OPTIONS "https://gkydopisnjblpqbaughp.supabase.co/functions/v1/stripe-checkout"
