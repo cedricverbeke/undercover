@@ -12,6 +12,7 @@ export interface PurchaseRecord {
   device_id: string;
   purchase_type: PurchaseType;
   stripe_session_id: string | null;
+  email: string | null;
   expires_at: string | null;
   created_at: string;
 }
@@ -60,4 +61,48 @@ export function computePremiumState(purchases: PurchaseRecord[]): PremiumState {
 
 export function isPremiumActive(state: PremiumState): boolean {
   return state.hasLifetime || (state.partyPassUntil !== null && state.partyPassUntil > Date.now());
+}
+
+export async function requestRestoreEmail(email: string, lang: string): Promise<void> {
+  const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/restore-request`;
+  const response = await fetch(apiUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+    },
+    body: JSON.stringify({ email, lang }),
+  });
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || `Request failed (${response.status})`);
+  }
+}
+
+export async function claimRestoreToken(
+  token: string,
+  deviceId: string
+): Promise<{ restored: boolean; purchaseType?: PurchaseType; alreadyActive?: boolean }> {
+  const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/restore-claim`;
+  const response = await fetch(apiUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+    },
+    body: JSON.stringify({ token, deviceId }),
+  });
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || `Claim failed (${response.status})`);
+  }
+  const data = await response.json();
+  if (!data || typeof data.restored !== 'boolean') {
+    throw new Error('Unexpected response from restore service');
+  }
+  return {
+    restored: data.restored,
+    purchaseType: data.purchaseType as PurchaseType | undefined,
+    alreadyActive: data.alreadyActive,
+  };
 }

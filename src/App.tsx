@@ -29,9 +29,13 @@ import {
   fetchPurchases,
   computePremiumState,
   isPremiumActive,
+  requestRestoreEmail,
+  claimRestoreToken,
   type PremiumState,
   type PurchaseType,
 } from '@/lib/supabase';
+
+type RestoreView = 'main' | 'email' | 'sent' | 'success' | 'error';
 
 const LANG_KEY = 'undercover_lang';
 
@@ -60,6 +64,8 @@ export default function App() {
   const [premiumLoading, setPremiumLoading] = useState(true);
   const [purchaseLoading, setPurchaseLoading] = useState(false);
   const [purchaseError, setPurchaseError] = useState<string | null>(null);
+  const [restoreView, setRestoreView] = useState<RestoreView>('main');
+  const [restoreError, setRestoreError] = useState<string | null>(null);
 
   const usedKeysRef = useRef<Set<string>>(new Set());
 
@@ -177,7 +183,7 @@ export default function App() {
 
   const handleBuy = async (type: PurchaseType) => {
     setPurchaseLoading(true);
-    setPurchaseError(false);
+    setPurchaseError(null);
     try {
       const deviceId = getDeviceId();
       const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/stripe-checkout`;
@@ -220,6 +226,44 @@ export default function App() {
     setShowPremium(false);
   };
 
+  const handleRequestRestoreEmail = async (email: string) => {
+    await requestRestoreEmail(email, lang);
+  };
+
+  const handleRestoreViewChange = (view: RestoreView) => {
+    setRestoreError(null);
+    setRestoreView(view);
+  };
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const restoreToken = params.get('restore');
+    if (restoreToken) {
+      // Clean the URL immediately
+      window.history.replaceState({}, '', window.location.pathname);
+      setShowPremium(true);
+      setRestoreView('main');
+      setRestoreError(null);
+
+      (async () => {
+        const deviceId = getDeviceId();
+        try {
+          const result = await claimRestoreToken(restoreToken, deviceId);
+          await loadPurchases();
+          if (result.alreadyActive) {
+            setRestoreView('success');
+          } else {
+            setRestoreView('success');
+          }
+        } catch (err) {
+          const message = err instanceof Error ? err.message : 'unknown';
+          setRestoreError(message);
+          setRestoreView('error');
+        }
+      })();
+    }
+  }, [loadPurchases]);
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get('success') === 'true') {
@@ -228,11 +272,17 @@ export default function App() {
     }
   }, [loadPurchases]);
 
+  const handleShowPremium = () => {
+    setRestoreView('main');
+    setRestoreError(null);
+    setShowPremium(true);
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100">
       <Header
         onShowRules={() => setShowRules(true)}
-        onShowPremium={() => setShowPremium(true)}
+        onShowPremium={handleShowPremium}
         onLanguageChange={handleLanguageChange}
         currentLang={lang}
         t={t}
@@ -290,12 +340,16 @@ export default function App() {
         <PremiumModal
           onClose={() => setShowPremium(false)}
           onBuy={handleBuy}
-          onRestore={handleRestore}
+          onRestoreCurrent={handleRestore}
+          onRequestRestoreEmail={handleRequestRestoreEmail}
           t={t}
           premiumState={premiumState}
           loading={purchaseLoading || premiumLoading}
           purchaseError={purchaseError}
           purchaseErrorLabel={t.purchaseError}
+          restoreView={restoreView}
+          restoreError={restoreError}
+          onRestoreViewChange={handleRestoreViewChange}
         />
       )}
     </div>

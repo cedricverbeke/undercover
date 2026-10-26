@@ -1,5 +1,11 @@
 [functions.stripe-checkout]
-verify_jwt = true
+verify_jwt = false
 
 [functions.stripe-webhook]
+verify_jwt = false
+
+[functions.restore-request]
+verify_jwt = false
+
+[functions.restore-claim]
 verify_jwt = false

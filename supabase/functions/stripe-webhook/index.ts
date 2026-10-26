@@ -46,6 +46,12 @@ Deno.serve(async (req: Request) => {
         | "lifetime"
         | undefined;
 
+      const customerEmail =
+        session.customer_details?.email ||
+        (session.customer as string | undefined) ||
+        session.metadata?.email ||
+        null;
+
       if (deviceId && purchaseType) {
         const { data: existing } = await supabase
           .from("purchases")
@@ -59,6 +65,7 @@ Deno.serve(async (req: Request) => {
             device_id: deviceId,
             purchase_type: purchaseType,
             stripe_session_id: session.id,
+            email: customerEmail,
             expires_at:
               purchaseType === "party_pass"
                 ? new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()

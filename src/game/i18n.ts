@@ -127,6 +127,7 @@ export interface Translation {
   // Footer
   footerTagline: string;
   footerCopyright: string;
+  cgv: string;
   // Language
   language: string;
   // Errors
@@ -136,6 +137,23 @@ export interface Translation {
   loading: string;
   purchaseError: string;
   back: string;
+  // Restore via email
+  restoreByEmail: string;
+  restoreByEmailDesc: string;
+  restoreEmailLabel: string;
+  restoreEmailPlaceholder: string;
+  restoreSendLink: string;
+  restoreSending: string;
+  restoreSent: string;
+  restoreSentDesc: string;
+  restoreSuccess: string;
+  restoreSuccessDesc: string;
+  restoreAlreadyActive: string;
+  restoreErrorInvalid: string;
+  restoreErrorUsed: string;
+  restoreErrorExpired: string;
+  restoreErrorGeneric: string;
+  restoreBackToPremium: string;
 }
 
 const fr: Translation = {
@@ -241,12 +259,29 @@ const fr: Translation = {
   mrGreenWinMsg: 'a deviné le mot des Civils et remporte la victoire !',
   footerTagline: 'Le secret d\'une soirée réussie ? Le partage et les éclats de rire.',
   footerCopyright: 'Undercover',
+  cgv: 'CGV',
   language: 'Langue',
   errorNeedCivil: 'Il doit y avoir au moins un Civil ! Réduisez les rôles spéciaux ou ajoutez des joueurs.',
   errorNeedCategory: 'Veuillez sélectionner au moins une catégorie.',
   loading: 'Chargement...',
   purchaseError: 'Le paiement a échoué. Veuillez réessayer.',
   back: 'Retour',
+  restoreByEmail: 'Restaurer par email',
+  restoreByEmailDesc: 'Saisissez l\'email utilisé lors de votre achat. Vous recevrez un lien de restauration valable 10 minutes.',
+  restoreEmailLabel: 'Email',
+  restoreEmailPlaceholder: 'votre@email.com',
+  restoreSendLink: 'Envoyer le lien',
+  restoreSending: 'Envoi...',
+  restoreSent: 'Email envoyé !',
+  restoreSentDesc: 'Vérifiez votre boîte de réception. Le lien est valable 10 minutes.',
+  restoreSuccess: 'Achat restauré !',
+  restoreSuccessDesc: 'Votre accès Premium a été restauré sur cet appareil.',
+  restoreAlreadyActive: 'Vous avez déjà un accès actif sur cet appareil.',
+  restoreErrorInvalid: 'Le lien de restauration n\'est pas valide.',
+  restoreErrorUsed: 'Ce lien a déjà été utilisé.',
+  restoreErrorExpired: 'Ce lien a expiré. Veuillez en demander un nouveau.',
+  restoreErrorGeneric: 'Une erreur est survenue. Veuillez réessayer.',
+  restoreBackToPremium: 'Retour',
 };
 
 const en: Translation = {
@@ -352,12 +387,29 @@ const en: Translation = {
   mrGreenWinMsg: 'guessed the Civilians\' word and wins the game!',
   footerTagline: 'The secret to a great evening? Sharing and laughter.',
   footerCopyright: 'Undercover',
+  cgv: 'Terms',
   language: 'Language',
   errorNeedCivil: 'There must be at least one Civil! Reduce special roles or add players.',
   errorNeedCategory: 'Please select at least one category.',
   loading: 'Loading...',
   purchaseError: 'Payment failed. Please try again.',
   back: 'Back',
+  restoreByEmail: 'Restore via email',
+  restoreByEmailDesc: 'Enter the email you used for your purchase. You\'ll receive a restore link valid for 10 minutes.',
+  restoreEmailLabel: 'Email',
+  restoreEmailPlaceholder: 'your@email.com',
+  restoreSendLink: 'Send link',
+  restoreSending: 'Sending...',
+  restoreSent: 'Email sent!',
+  restoreSentDesc: 'Check your inbox. The link is valid for 10 minutes.',
+  restoreSuccess: 'Purchase restored!',
+  restoreSuccessDesc: 'Your Premium access has been restored on this device.',
+  restoreAlreadyActive: 'You already have an active subscription on this device.',
+  restoreErrorInvalid: 'The restore link is not valid.',
+  restoreErrorUsed: 'This link has already been used.',
+  restoreErrorExpired: 'This link has expired. Please request a new one.',
+  restoreErrorGeneric: 'An error occurred. Please try again.',
+  restoreBackToPremium: 'Back',
 };
 
 const es: Translation = {
@@ -458,12 +510,29 @@ const es: Translation = {
   mrGreenWinMsg: 'adivinó la palabra de los Civiles y ¡gana la partida!',
   footerTagline: 'El secreto de una gran noche? Compartir y reír.',
   footerCopyright: 'Undercover',
+  cgv: 'CGV',
   language: 'Idioma',
   errorNeedCivil: '¡Debe haber al menos un Civil! Reduce los roles especiales o añade jugadores.',
   errorNeedCategory: 'Por favor, selecciona al menos una categoría.',
   loading: 'Cargando...',
   purchaseError: 'El pago ha fallado. Inténtalo de nuevo.',
   back: 'Volver',
+  restoreByEmail: 'Restaurar por email',
+  restoreByEmailDesc: 'Introduce el email que usaste para tu compra. Recibirás un enlace de restauración válido por 10 minutos.',
+  restoreEmailLabel: 'Email',
+  restoreEmailPlaceholder: 'tu@email.com',
+  restoreSendLink: 'Enviar enlace',
+  restoreSending: 'Enviando...',
+  restoreSent: '¡Email enviado!',
+  restoreSentDesc: 'Revisa tu bandeja de entrada. El enlace es válido por 10 minutos.',
+  restoreSuccess: '¡Compra restaurada!',
+  restoreSuccessDesc: 'Tu acceso Premium ha sido restaurado en este dispositivo.',
+  restoreAlreadyActive: 'Ya tienes una suscripción activa en este dispositivo.',
+  restoreErrorInvalid: 'El enlace de restauración no es válido.',
+  restoreErrorUsed: 'Este enlace ya ha sido usado.',
+  restoreErrorExpired: 'Este enlace ha expirado. Solicita uno nuevo.',
+  restoreErrorGeneric: 'Ocurrió un error. Inténtalo de nuevo.',
+  restoreBackToPremium: 'Volver',
 };
 
 const de: Translation = {
@@ -563,12 +632,29 @@ const de: Translation = {
   mrGreenWinMsg: 'hat das Wort der Zivilisten erraten und gewinnt!',
   footerTagline: 'Das Geheimnis eines tollen Abends? Teilen und Lachen.',
   footerCopyright: 'Undercover',
+  cgv: 'AGB',
   language: 'Sprache',
   errorNeedCivil: 'Es muss mindestens ein Zivilist sein! Reduziere Spezialrollen oder füge Spieler hinzu.',
   errorNeedCategory: 'Bitte wähle mindestens eine Kategorie.',
   loading: 'Laden...',
   purchaseError: 'Zahlung fehlgeschlagen. Bitte erneut versuchen.',
   back: 'Zurück',
+  restoreByEmail: 'Per E-Mail wiederherstellen',
+  restoreByEmailDesc: 'Gib die E-Mail-Adresse ein, die du beim Kauf verwendet hast. Du erhältst einen Wiederherstellungslink, der 10 Minuten gültig ist.',
+  restoreEmailLabel: 'E-Mail',
+  restoreEmailPlaceholder: 'deine@email.com',
+  restoreSendLink: 'Link senden',
+  restoreSending: 'Senden...',
+  restoreSent: 'E-Mail gesendet!',
+  restoreSentDesc: 'Überprüfe deinen Posteingang. Der Link ist 10 Minuten gültig.',
+  restoreSuccess: 'Kauf wiederhergestellt!',
+  restoreSuccessDesc: 'Dein Premium-Zugang wurde auf diesem Gerät wiederhergestellt.',
+  restoreAlreadyActive: 'Du hast bereits ein aktives Abonnement auf diesem Gerät.',
+  restoreErrorInvalid: 'Der Wiederherstellungslink ist nicht gültig.',
+  restoreErrorUsed: 'Dieser Link wurde bereits verwendet.',
+  restoreErrorExpired: 'Dieser Link ist abgelaufen. Bitte fordere einen neuen an.',
+  restoreErrorGeneric: 'Ein Fehler ist aufgetreten. Bitte erneut versuchen.',
+  restoreBackToPremium: 'Zurück',
 };
 
 const it: Translation = {
@@ -668,12 +754,29 @@ const it: Translation = {
   mrGreenWinMsg: 'ha indovinato la parola dei Civili e vince la partita!',
   footerTagline: 'Il segreto di una bella serata? Condivisione e risate.',
   footerCopyright: 'Undercover',
+  cgv: 'CGV',
   language: 'Lingua',
   errorNeedCivil: 'Deve esserci almeno un Civile! Riduci i ruoli speciali o aggiungi giocatori.',
   errorNeedCategory: 'Seleziona almeno una categoria.',
   loading: 'Caricamento...',
   purchaseError: 'Pagamento fallito. Riprova.',
   back: 'Indietro',
+  restoreByEmail: 'Ripristina via email',
+  restoreByEmailDesc: 'Inserisci l\'email usata per il tuo acquisto. Riceverai un link di ripristino valido per 10 minuti.',
+  restoreEmailLabel: 'Email',
+  restoreEmailPlaceholder: 'tua@email.com',
+  restoreSendLink: 'Invia link',
+  restoreSending: 'Invio...',
+  restoreSent: 'Email inviata!',
+  restoreSentDesc: 'Controlla la tua casella di posta. Il link è valido per 10 minuti.',
+  restoreSuccess: 'Acquisto ripristinato!',
+  restoreSuccessDesc: 'Il tuo accesso Premium è stato ripristinato su questo dispositivo.',
+  restoreAlreadyActive: 'Hai già un abbonamento attivo su questo dispositivo.',
+  restoreErrorInvalid: 'Il link di ripristino non è valido.',
+  restoreErrorUsed: 'Questo link è già stato usato.',
+  restoreErrorExpired: 'Questo link è scaduto. Richiedine uno nuovo.',
+  restoreErrorGeneric: 'Si è verificato un errore. Riprova.',
+  restoreBackToPremium: 'Indietro',
 };
 
 const pt: Translation = {
@@ -773,12 +876,29 @@ const pt: Translation = {
   mrGreenWinMsg: 'adivinhou a palavra dos Civis e ganha o jogo!',
   footerTagline: 'O segredo de uma boa noite? Partilha e risos.',
   footerCopyright: 'Undercover',
+  cgv: 'CGV',
   language: 'Idioma',
   errorNeedCivil: 'Deve haver pelo menos um Civil! Reduz papéis especiais ou adiciona jogadores.',
   errorNeedCategory: 'Seleciona pelo menos uma categoria.',
   loading: 'A carregar...',
   purchaseError: 'O pagamento falhou. Tente novamente.',
   back: 'Voltar',
+  restoreByEmail: 'Restaurar por email',
+  restoreByEmailDesc: 'Introduz o email que usaste na tua compra. Receberás um link de restauração válido por 10 minutos.',
+  restoreEmailLabel: 'Email',
+  restoreEmailPlaceholder: 'teu@email.com',
+  restoreSendLink: 'Enviar link',
+  restoreSending: 'A enviar...',
+  restoreSent: 'Email enviado!',
+  restoreSentDesc: 'Verifica a tua caixa de entrada. O link é válido por 10 minutos.',
+  restoreSuccess: 'Compra restaurada!',
+  restoreSuccessDesc: 'O teu acesso Premium foi restaurado neste dispositivo.',
+  restoreAlreadyActive: 'Já tens uma subscrição ativa neste dispositivo.',
+  restoreErrorInvalid: 'O link de restauração não é válido.',
+  restoreErrorUsed: 'Este link já foi usado.',
+  restoreErrorExpired: 'Este link expirou. Pede um novo.',
+  restoreErrorGeneric: 'Ocorreu um erro. Tenta novamente.',
+  restoreBackToPremium: 'Voltar',
 };
 
 export const TRANSLATIONS: Record<LangCode, Translation> = { fr, en, es, de, it, pt };
