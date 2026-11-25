@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import type { RoleConfig, SetupConfig, LangCode, WordCategory } from '@/game/types';
 import type { Translation } from '@/game/i18n';
-import { WORD_DATA, FREE_PAIR_COUNT, getFreeWordPairs } from '@/game/words';
+import { WORD_DATA, FREE_ENTRIES_PER_CATEGORY } from '@/game/words';
 import { CATEGORY_NAMES } from '@/game/i18n';
 
 interface SetupProps {
@@ -44,22 +44,15 @@ export function Setup({ onStart, initialConfig, t, lang, isPremium, onUpgradeCli
   );
   const [error, setError] = useState('');
 
-  const allCategories: WordCategory[] = WORD_DATA[lang];
-  const freePairs = getFreeWordPairs(lang);
-  const freePairKeys = new Set(
-    freePairs.map((p) => [p.civil, p.undercover].sort().join('|'))
-  );
+const allCategories: WordCategory[] = WORD_DATA[lang];
+
 
   function isCategoryFree(cat: WordCategory): boolean {
-    return cat.words.every((w) =>
-      freePairKeys.has([w.civil, w.undercover].sort().join('|'))
-    );
+    return cat.words.length <= FREE_ENTRIES_PER_CATEGORY;
   }
 
   function getCategoryFreeCount(cat: WordCategory): number {
-    return cat.words.filter((w) =>
-      freePairKeys.has([w.civil, w.undercover].sort().join('|'))
-    ).length;
+    return Math.min(cat.words.length, FREE_ENTRIES_PER_CATEGORY);
   }
 
   const addPlayer = () => setPlayers([...players, '']);
@@ -86,7 +79,9 @@ export function Setup({ onStart, initialConfig, t, lang, isPremium, onUpgradeCli
     }
   };
 
-  const handleStart = () => {
+  const getDefaultPlayerName = (index: number) => `${t.player || 'Joueur'} ${index + 1}`;
+
+const handleStart = () => {
     const totalSpecial =
       (roles.mrWhite ? 1 : 0) +
       (roles.mrGreen ? 1 : 0) +
@@ -104,7 +99,17 @@ export function Setup({ onStart, initialConfig, t, lang, isPremium, onUpgradeCli
       return;
     }
     setError('');
-    onStart({ playerNames: players, roleConfig: roles, categoryIds: categories, blindMode });
+
+
+    const finalPlayerNames = players.map((name, i) =>
+      name.trim() ? name.trim() : `Joueur ${i + 1}`
+    );
+    onStart({
+      playerNames: finalPlayerNames,
+      roleConfig: roles,
+      categoryIds: categories,
+      blindMode,
+    });
   };
 
   const roleKeys: { key: keyof RoleConfig; label: string; activeColor: string }[] = [
@@ -124,12 +129,12 @@ export function Setup({ onStart, initialConfig, t, lang, isPremium, onUpgradeCli
           {t.players} ({players.length})
         </h2>
         <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
-          {players.map((p, i) => (
+           {players.map((p, i) => (
             <div key={i} className="flex gap-2">
               <input
                 type="text"
-                value={focusedPlayer === i ? p : (p || `${t.roleCivil} ${i + 1}`)}
-                placeholder={`${t.roleCivil} ${i + 1}`}
+                value={focusedPlayer === i ? p : (p || `Joueur ${i + 1}`)}
+                placeholder={`Joueur ${i + 1}`}
                 onFocus={() => setFocusedPlayer(i)}
                 onChange={(e) => updatePlayer(i, e.target.value)}
                 onBlur={() => setFocusedPlayer(null)}
@@ -159,10 +164,9 @@ export function Setup({ onStart, initialConfig, t, lang, isPremium, onUpgradeCli
           </h2>
           {!isPremium && (
             <span className="text-xs text-amber-400 font-medium">
-              {FREE_PAIR_COUNT} {t.freeVersionDesc}
+              {FREE_ENTRIES_PER_CATEGORY} {t.freeVersionDesc}
             </span>
-          )}
-        </div>
+          )}        </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {allCategories.map((cat) => {
             const isSelected = categories.includes(cat.id);

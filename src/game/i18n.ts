@@ -23,6 +23,7 @@ export interface Translation {
   gotIt: string;
   // Setup
   players: string;
+  player: string;
   playersCount: string;
   addPlayer: string;
   categories: string;
@@ -163,6 +164,7 @@ const fr: Translation = {
   close: 'Fermer',
   gotIt: 'J\'ai compris',
   players: 'Joueurs',
+  player: 'Joueur',
   playersCount: 'Joueurs',
   addPlayer: 'Ajouter un joueur',
   categories: 'Catégories de mots',
@@ -237,7 +239,7 @@ const fr: Translation = {
   upgradeTitle: 'Débloquez tous les mots',
   upgradeDesc: 'Accédez à plus de 1000 couples de mots dans toutes les catégories et toutes les langues.',
   freeVersion: 'Version Gratuite',
-  freeVersionDesc: 'couples de mots fixes',
+  freeVersionDesc: 'paires gratuites / catégorie',
   partyPass: 'Pass Soirée (24h)',
   partyPassDesc: 'Débloque tous les mots pour la soirée en cours',
   partyPassPrice: '0,99 €',
@@ -291,6 +293,7 @@ const en: Translation = {
   close: 'Close',
   gotIt: 'Got it',
   players: 'Players',
+  player: 'Player',
   playersCount: 'Players',
   addPlayer: 'Add player',
   categories: 'Word categories',
@@ -365,7 +368,7 @@ const en: Translation = {
   upgradeTitle: 'Unlock all words',
   upgradeDesc: 'Access 1000+ word pairs across all categories and languages.',
   freeVersion: 'Free Version',
-  freeVersionDesc: 'fixed word pairs',
+  freeVersionDesc: 'free pairs / category',
   partyPass: 'Party Pass (24h)',
   partyPassDesc: 'Unlock all words for one evening',
   partyPassPrice: '$0.99',
@@ -419,6 +422,7 @@ const es: Translation = {
   close: 'Cerrar',
   gotIt: 'Entendido',
   players: 'Jugadores',
+  player: 'Jugador',
   addPlayer: 'Añadir jugador',
   categories: 'Categorías de palabras',
   settingsRoles: 'Ajustes y Roles',
@@ -488,7 +492,7 @@ const es: Translation = {
   upgradeTitle: 'Desbloquea todas las palabras',
   upgradeDesc: 'Accede a más de 1000 parejas de palabras en todas las categorías e idiomas.',
   freeVersion: 'Versión Gratuita',
-  freeVersionDesc: 'parejas de palabras fijas',
+  freeVersionDesc: 'parejas gratis / categorías',
   partyPass: 'Pase de Fiesta (24h)',
   partyPassDesc: 'Desbloquea todas las palabras por una noche',
   partyPassPrice: '0,99 €',
@@ -542,6 +546,7 @@ const de: Translation = {
   close: 'Schließen',
   gotIt: 'Verstanden',
   players: 'Spieler',
+  player: 'Spieler',
   addPlayer: 'Spieler hinzufügen',
   categories: 'Wort-Kategorien',
   settingsRoles: 'Einstellungen & Rollen',
@@ -610,7 +615,7 @@ const de: Translation = {
   upgradeTitle: 'Alle Wörter freischalten',
   upgradeDesc: 'Zugriff auf über 1000 Wortpaare in allen Kategorien und Sprachen.',
   freeVersion: 'Kostenlose Version',
-  freeVersionDesc: 'feste Wortpaare',
+  freeVersionDesc: 'kostenlose Paare / Kategorie',
   partyPass: 'Party-Pass (24h)',
   partyPassDesc: 'Alle Wörter für einen Abend freischalten',
   partyPassPrice: '0,99 €',
@@ -664,6 +669,7 @@ const it: Translation = {
   close: 'Chiudi',
   gotIt: 'Capito',
   players: 'Giocatori',
+  player: 'Giocatore',
   addPlayer: 'Aggiungi giocatore',
   categories: 'Categorie di parole',
   settingsRoles: 'Impostazioni & Ruoli',
@@ -732,7 +738,7 @@ const it: Translation = {
   upgradeTitle: 'Sblocca tutte le parole',
   upgradeDesc: 'Accedi a più di 1000 coppie di parole in tutte le categorie e lingue.',
   freeVersion: 'Versione Gratuita',
-  freeVersionDesc: 'coppie di parole fisse',
+  freeVersionDesc: 'coppie gratuite / categoria',
   partyPass: 'Pass Festa (24h)',
   partyPassDesc: 'Sblocca tutte le parole per una serata',
   partyPassPrice: '0,99 €',
@@ -786,6 +792,7 @@ const pt: Translation = {
   close: 'Fechar',
   gotIt: 'Entendi',
   players: 'Jogadores',
+  player: 'Jogador',
   addPlayer: 'Adicionar jogador',
   categories: 'Categorias de palavras',
   settingsRoles: 'Definições & Papéis',
@@ -854,7 +861,7 @@ const pt: Translation = {
   upgradeTitle: 'Desbloqueia todas as palavras',
   upgradeDesc: 'Acede a mais de 1000 pares de palavras em todas as categorias e idiomas.',
   freeVersion: 'Versão Gratuita',
-  freeVersionDesc: 'pares de palavras fixos',
+  freeVersionDesc: 'pares gratuitos / categoria',
   partyPass: 'Passe de Festa (24h)',
   partyPassDesc: 'Desbloqueia todas as palavras por uma noite',
   partyPassPrice: '0,99 €',
@@ -908,12 +915,12 @@ export function getTranslation(lang: LangCode): Translation {
 }
 
 export const CATEGORY_NAMES: Record<LangCode, Record<string, string>> = {
-  fr: { nature: 'Nature', quotidien: 'Quotidien', nourriture: 'Nourriture', voyage: 'Voyage', marques: 'Marques', cinema: 'Cinéma' },
-  en: { nature: 'Nature', quotidien: 'Everyday', nourriture: 'Food', voyage: 'Travel', marques: 'Brands', cinema: 'Cinema' },
-  es: { nature: 'Naturaleza', quotidien: 'Día a día', nourriture: 'Comida', voyage: 'Viaje', marques: 'Marcas', cinema: 'Cine' },
-  de: { nature: 'Natur', quotidien: 'Alltag', nourriture: 'Essen', voyage: 'Reise', marques: 'Marken', cinema: 'Kino' },
-  it: { nature: 'Natura', quotidien: 'Quotidiano', nourriture: 'Cibo', voyage: 'Viaggio', marques: 'Marchi', cinema: 'Cinema' },
-  pt: { nature: 'Natureza', quotidien: 'Dia a dia', nourriture: 'Comida', voyage: 'Viagem', marques: 'Marcas', cinema: 'Cinema' },
+  fr: { nature: 'Nature', quotidien: 'Quotidien', nourriture: 'Nourriture', voyage: 'Voyage', marques: 'Marques', cinema: 'Cinéma', noel: 'Noël' },
+  en: { nature: 'Nature', quotidien: 'Everyday', nourriture: 'Food', voyage: 'Travel', marques: 'Brands', cinema: 'Cinema', noel: 'Christmas' },
+  es: { nature: 'Naturaleza', quotidien: 'Día a día', nourriture: 'Comida', voyage: 'Viaje', marques: 'Marcas', cinema: 'Cine', noel: 'Navidad' },
+  de: { nature: 'Natur', quotidien: 'Alltag', nourriture: 'Essen', voyage: 'Reise', marques: 'Marken', cinema: 'Kino', noel: 'Weihnachten' },
+  it: { nature: 'Natura', quotidien: 'Quotidiano', nourriture: 'Cibo', voyage: 'Viaggio', marques: 'Marchi', cinema: 'Cinema', noel: 'Natale' },
+  pt: { nature: 'Natureza', quotidien: 'Dia a dia', nourriture: 'Comida', voyage: 'Viagem', marques: 'Marcas', cinema: 'Cinema', noel: 'Natal' },
 };
 
 export function roleLabel(role: RoleId, t: Translation): string {

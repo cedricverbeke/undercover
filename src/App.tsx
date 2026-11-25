@@ -136,7 +136,7 @@ export default function App() {
     setPhase('gameover');
   };
 
-  const handleEliminate = (playerIds: number | number[], currentRound: number) => {
+const handleEliminate = (playerIds: number | number[], currentRound: number) => {
     const idsToKill = Array.isArray(playerIds) ? playerIds : [playerIds];
     const updatedPlayers = players.map((p) =>
       idsToKill.includes(p.id) ? { ...p, isAlive: false, diedAtRound: currentRound } : p
@@ -147,16 +147,6 @@ export default function App() {
     if (result.over) {
       processWin(result, updatedPlayers);
     } else {
-      if (setupConfig) {
-        const pool = buildPool(lang, setupConfig.categoryIds, isPremium);
-        if (pool.length > 0 && wordPair) {
-          const nextPair = pickNextWordPair(pool, usedKeysRef.current);
-          if (nextPair) {
-            usedKeysRef.current.add(makeUsedKey(nextPair));
-            setWordPair(nextPair);
-          }
-        }
-      }
       setRound(currentRound + 1);
     }
   };
